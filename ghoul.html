@@ -1,1 +1,355 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nate Shadow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0908;
+    --ink-2:#141210;
+    --bone:#e9e1d0;
+    --bone-dim:#a89d87;
+    --blood:#5e0c14;
+    --blood-bright:#9e1a24;
+    --moss:#4d5a41;
+    --line: rgba(233,225,208,0.14);
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'EB Garamond', serif;
+    font-size:19px;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    letter-spacing:0.32em;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+  }
+
+  h1,h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--bone);
+  }
+
+  /* ---------- grain + vignette ---------- */
+  .grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .vignette{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:49;
+    background:radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.65) 100%);
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:40;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1.4rem 2rem;
+    background:linear-gradient(to bottom, rgba(10,9,8,0.9), rgba(10,9,8,0));
+  }
+  nav .mark{
+    font-family:'Cinzel', serif;
+    font-size:0.85rem;
+    letter-spacing:0.25em;
+  }
+  nav .links a{
+    font-family:'Cinzel', serif;
+    font-size:0.68rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--bone-dim);
+    margin-left:2rem;
+    transition:color 0.3s ease;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+  }
+  nav .links a:hover, nav .links a:focus-visible{
+    color:var(--blood-bright);
+    border-bottom-color:var(--blood-bright);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:7rem 1.5rem 4rem;
+    overflow:hidden;
+  }
+
+  .moon-glow{
+    position:absolute;
+    top:8%;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(64vw, 640px);
+    height:min(64vw, 640px);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(233,225,208,0.10) 0%, rgba(233,225,208,0.03) 45%, rgba(233,225,208,0) 70%);
+    animation:flicker 7s ease-in-out infinite;
+    z-index:0;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    45%{opacity:0.85;}
+    47%{opacity:0.55;}
+    49%{opacity:0.9;}
+    72%{opacity:0.7;}
+    74%{opacity:1;}
+  }
+
+  .fog{
+    position:absolute;
+    bottom:-10%;
+    width:160%;
+    height:40%;
+    left:-30%;
+    background:radial-gradient(ellipse at center, rgba(233,225,208,0.06), transparent 70%);
+    filter:blur(6px);
+    animation:drift 26s linear infinite;
+    z-index:1;
+  }
+  .fog.two{
+    bottom:-16%;
+    animation-duration:34s;
+    animation-direction:reverse;
+    opacity:0.7;
+  }
+  @keyframes drift{
+    0%{transform:translateX(-6%);}
+    50%{transform:translateX(6%);}
+    100%{transform:translateX(-6%);}
+  }
+
+  .logo-wrap{
+    position:relative;
+    z-index:2;
+    width:min(78vw, 420px);
+  }
+  .logo-wrap img{
+    width:100%;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 0 40px rgba(0,0,0,0.8));
+  }
+
+  .tagline{
+    position:relative;
+    z-index:2;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:var(--bone-dim);
+    max-width:32ch;
+    margin:0.4rem 0 2.2rem;
+  }
+
+  .cta{
+    position:relative;
+    z-index:2;
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    font-family:'Cinzel', serif;
+    font-size:0.78rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--bone);
+    padding:0.95rem 2.1rem;
+    border:1px solid var(--bone-dim);
+    background:rgba(94,12,20,0.12);
+    transition:all 0.35s ease;
+  }
+  .cta:hover, .cta:focus-visible{
+    background:var(--blood);
+    border-color:var(--blood-bright);
+    color:var(--bone);
+    box-shadow:0 0 26px rgba(158,26,36,0.5);
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.4rem;
+    left:50%;
+    transform:translateX(-50%);
+    width:1px;
+    height:52px;
+    background:linear-gradient(to bottom, transparent, var(--bone-dim));
+    z-index:2;
+  }
+  .scroll-cue::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    width:5px;
+    height:5px;
+    transform:translateX(-50%);
+    background:var(--bone-dim);
+    border-radius:50%;
+    animation:fall 2.4s ease-in-out infinite;
+  }
+  @keyframes fall{
+    0%{opacity:0; transform:translate(-50%, -10px);}
+    30%{opacity:1;}
+    100%{opacity:0; transform:translate(-50%, 46px);}
+  }
+
+  /* ---------- drip divider (signature element) ---------- */
+  .drip{
+    position:relative;
+    height:46px;
+    width:100%;
+    display:block;
+  }
+  .drip svg{width:100%; height:100%; display:block;}
+
+  /* ---------- sections ---------- */
+  section{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+    padding:5.5rem 1.5rem;
+  }
+
+  .story p{
+    color:var(--bone-dim);
+    font-size:1.08rem;
+  }
+  .story p::first-letter{
+    font-family:'Cormorant Garamond', serif;
+    font-size:3.4rem;
+    float:left;
+    line-height:0.8;
+    padding-right:0.15rem;
+    padding-top:0.3rem;
+    color:var(--blood-bright);
+  }
+
+  .music{
+    text-align:center;
+  }
+  .music h2{
+    font-size:2.1rem;
+    margin-bottom:0.6rem;
+  }
+  .music p{
+    color:var(--bone-dim);
+    margin-bottom:2rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:3rem 1.5rem 3.5rem;
+    color:var(--bone-dim);
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+  }
+  footer a{
+    text-decoration:underline;
+    text-underline-offset:3px;
+    color:var(--bone-dim);
+  }
+  footer a:hover{color:var(--blood-bright);}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--blood-bright);
+    outline-offset:3px;
+  }
+
+  @media (max-width:560px){
+    body{font-size:17px;}
+    nav .links a{margin-left:1.1rem;}
+    section{padding:4rem 1.25rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .moon-glow, .fog, .scroll-cue::after{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<nav>
+  <span class="mark">NATE SHADOW</span>
+  <span class="links">
+    <a href="/ghoul.html">Ghoul</a>
+    <a href="#story">Shadow Manor</a>
+    <a href="#music">Music</a>
+  </span>
+</nav>
+
+<section class="hero">
+  <div class="moon-glow"></div>
+  <div class="fog"></div>
+  <div class="fog two"></div>
+
+  <div class="logo-wrap">
+    <img src="hauntedhouse.png" alt="Nate Shadow logo: a haunted house beneath a full moon, with bats and a bare tree, above dripping lettering that reads Nate Shadow">
+  </div>
+  <p class="tagline">Music from the other side of the porch light.</p>
+  <p>
+  <a class="cta" href="https://nateshadow.bandcamp.com/" target="_blank" rel="noopener noreferrer">Listen on Bandcamp</a>
+  <a class="cta" href="https://open.spotify.com/artist/0Clh8G7iXUYmO31UwZdugv?si=aBiAoEi_TOq-y0f48-DELA" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
+  </p>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</section>
+
+
+
+
+
+
+
+<footer>
+  <p>&copy; <span id="year"></span> Nate Shadow &middot; <a href="https://nateshadow.bandcamp.com/" target="_blank" rel="noopener noreferrer">nateshadow.bandcamp.com</a></p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
