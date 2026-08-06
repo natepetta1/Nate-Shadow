@@ -43,6 +43,32 @@
     color:var(--bone-dim);
   }
 
+  .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111; /* adjust to match your theme */
+  min-width: 140px;
+  padding: 0.5em 0;
+  z-index: 10;
+}
+
+.dropdown-menu a {
+  padding: 0.5em 1em;
+  white-space: nowrap;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
   h1,h2{
     font-family:'Cormorant Garamond', serif;
     font-weight:600;
@@ -314,7 +340,13 @@
 <nav>
   <span class="mark">NATE SHADOW</span>
   <span class="links">
-    <a href="/Nate-Shadow/ghoul.html">Ghoul</a>
+    <span class="dropdown">
+      <a href="/Nate-Shadow/ghoul.html">Ghoul</a>
+      <span class="dropdown-menu">
+        <a href="/Nate-Shadow/ghoul1.html">Ghoul1</a>
+        <a href="/Nate-Shadow/ghoul2.html">Ghoul2</a>
+      </span>
+    </span>
     <a href="#story">Shadow Manor</a>
     <a href="#music">Music</a>
   </span>
