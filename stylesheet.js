@@ -1,6 +1,6 @@
-const navig = document.querySelector('#headergoeshere');
+const ss = document.querySelector('#headergoeshere');
 window.addEventListener('load', function () {
-  navig.innerHTML = `<meta charset="UTF-8">
+  ss.innerHTML = `<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nate Shadow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
