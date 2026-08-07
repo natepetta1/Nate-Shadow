@@ -1,5 +1,5 @@
 const navig = document.querySelector('#navigationgoeshere');
-window.AddEventListener('load', function () {
+window.addEventListener('load', function () {
   navig.innerHTML = `<nav id="linknavigation">
   <span class="mark">NATE SHADOW</span>
   <span class="links">
