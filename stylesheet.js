@@ -1,4 +1,4 @@
-const navig = document.querySelector('#navigationgoeshere');
+const navig = document.querySelector('#headergoeshere');
 window.addEventListener('load', function () {
   navig.innerHTML = `<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
