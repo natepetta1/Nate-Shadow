@@ -10,8 +10,8 @@ window.addEventListener('load', function () {
         <a href="/Nate-Shadow/ghoul2.html">Ghoul2</a>
       </span>
     </span>
-    <a href="#story">Shadow Manor</a>
-    <a href="#music">Music</a>
+    <a href="/Nate-Shadow/index.html#story">Shadow Manor</a>
+    <a href="/Nate-Shadow/index.html#music">Music</a>
   </span>
 </nav>`
 });
